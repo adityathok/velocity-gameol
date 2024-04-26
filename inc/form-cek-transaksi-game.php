@@ -51,8 +51,8 @@ function ajax_cektransaksigame_handler() {
                 );
 
                 $status = get_post_meta( get_the_ID(), 'status', true );
-                echo '<div class="card shadow my-3 text-dark">';
-                    echo '<div class="card-header fw-bold">'.$invoice.'</div>';
+                echo '<div class="card text-center shadow my-3 text-dark border-2" style="border-style:dashed">';
+                    echo '<div class="card-header fw-bold text-bg-dark fs-5">'.$invoice.'</div>';
                     echo '<div class="card-body">Status : '.$stt[$status].'</div>';
                 echo '</div>';
             } 
