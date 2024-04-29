@@ -79,16 +79,16 @@ add_shortcode('form-topup-game', function(){
                           <?php foreach($datanominal as $n => $data): ?>
                               <?php $title = strpos($data,'|') !== false?explode("|",$data)[0]:$data;?>
                               <?php $price = strpos($data,'|') !== false?explode("|",$data)[1]:$data;?>
-                              <div class="col-md-6 col-xl-4 pb-3">
+                              <div class="col-6 col-xl-4 pb-3">
                                 
                                 <input type="radio" class="btn-check" name="nominal" id="nominal-<?php echo $n;?>" value="<?php echo $data;?>" autocomplete="off" required>
-                                <label class="btn btn-outline-primary d-block text-start" for="nominal-<?php echo $n;?>">
-                					<div class="row">
-                                      <div class="col">
-                                          <div class="fw-bold" style="font-size: 15px;"><?php echo $title;?></div>
-                                          <small class="fst-italic"><?php echo $price;?></small>
+                                <label class="btn btn-outline-primary h-100 d-block text-start" for="nominal-<?php echo $n;?>">
+                					<div class="row g-1">
+                                      <div class="col-md-10 col-9">
+                                          <div style="font-size: 14px;"><?php echo $title;?></div>
+                                          <small class="fst-italic" style="font-size: 12px;">Rp <?php echo $price;?></small>
                                       </div>
-                                      <div class="col-lg-3 col-2 m-auto text-end">
+                                      <div class="col-md-2 col-3 m-auto text-end">
 											<?php if($iconnominal): ?>
                                   				<img src="<?php echo $iconnominal;?>" class="img-fluid w-100" loading="lazy"/>
 											<?php else: ?>
