@@ -118,8 +118,12 @@ add_shortcode('form-topup-game', function(){
                                     <input type="radio" class="btn-check" name="pembayaran" id="pembayaran-<?php echo $n;?>" value="<?php echo $data['title'];?>" autocomplete="off" required>
                                     <label class="btn btn-outline-secondary d-block text-start overflow-hidden p-0" for="pembayaran-<?php echo $n;?>">
                                         <div class="p-2">
-                                      		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16"> <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/> <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/> </svg> 
-                                          	<?php echo $data['title'];?>
+                                            <?php if(isset($data['logo']) && $data['logo']): ?>
+                                                <img src="<?php echo $data['logo'];?>" width="90" class="img-fluid rounded" alt="<?php echo $data['title'];?>">
+                                            <?php else: ?>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16"> <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/> <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/> </svg> 
+                                                <?php echo $data['title'];?>
+                                            <?php endif; ?>
                                         </div>
                                         <div class="infopembayaran alert alert-secondary mt-2 mb-0 border-0 rounded-0" style="display:none">
                                           <small>

@@ -58,4 +58,19 @@ function register_options_for_games_post_type() {
         'id'   => 'description',
         'type' => 'textarea_small',
     ) );
+    $cmb->add_group_field( $group_field_id, array(
+        'name'    => 'Logo',
+        'desc'    => 'upload gambar 150x60',
+        'default' => '',
+        'id'      => 'logo',
+        'type'    => 'file',
+        'query_args' => array(
+            'type' => array(
+              'image/gif',
+              'image/jpeg',
+              'image/png',
+              'image/webp',
+            ),
+        ),
+    ) );  
 }
