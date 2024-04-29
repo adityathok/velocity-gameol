@@ -3,20 +3,23 @@ add_action( 'wp_ajax_formtopupgame', 'ajax_formtopupgame_handler' );
 add_action( 'wp_ajax_nopriv_formtopupgame', 'ajax_formtopupgame_handler' );
 
 function ajax_formtopupgame_handler() {
+    $gameoptions    = get_option('games_options');
+    $recaptcha	    = isset($gameoptions['recaptcha'])?$gameoptions['recaptcha']:false;
 
     parse_str($_POST['formdata'], $formData);
     // print_r($formData);
 
     $security = true;
-    if (class_exists('Velocity_Addons_Captcha') && isset($formData['g-recaptcha-response']) && !empty($formData['g-recaptcha-response'])) {
-        $security = true;
-    } elseif(class_exists('Velocity_Addons_Captcha') && isset($formData['g-recaptcha-response']) && empty($formData['g-recaptcha-response'])) {
-        $security = false;
-        echo '<div class="alert alert-danger">Silahkan lengkapi Captcha</div>';
+    if($recaptcha){
+        if (class_exists('Velocity_Addons_Captcha') && isset($formData['g-recaptcha-response']) && !empty($formData['g-recaptcha-response'])) {
+            $security = true;
+        } elseif(class_exists('Velocity_Addons_Captcha') && isset($formData['g-recaptcha-response']) && empty($formData['g-recaptcha-response'])) {
+            $security = false;
+            echo '<div class="alert alert-danger">Silahkan lengkapi Captcha</div>';
+        }
     }
 
     if ($security) {
-        $gameoptions    = get_option('games_options');
         $invoice		= strtoupper(uniqid());
 
         ///ORDER via Whatsapp

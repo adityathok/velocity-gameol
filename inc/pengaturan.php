@@ -14,7 +14,7 @@ function register_options_for_games_post_type() {
 		'desc'    => esc_html__( 'Aktifkan Pembelian lewat Whatsapp', 'velocity-gameol' ),
 		'id'      => 'waorder',
 		'type'    => 'checkbox',
-		'default' => true,
+		'default' => false,
 	) );
 	$cmb->add_field( array(
 		'name'    => esc_html__( 'No Whatsapp Pembelian', 'velocity-gameol' ),
@@ -27,7 +27,14 @@ function register_options_for_games_post_type() {
 		'desc'    => esc_html__( 'Simpan data pembelian', 'velocity-gameol' ),
 		'id'      => 'dataorder',
 		'type'    => 'checkbox',
-		'default' => true,
+		'default' => false,
+	) );
+	$cmb->add_field( array(
+		'name'    => esc_html__( 'reCaptcha', 'velocity-gameol' ),
+		'desc'    => esc_html__( 'Aktfikan reCaptcha', 'velocity-gameol' ),
+		'id'      => 'recaptcha',
+		'type'    => 'checkbox',
+		'default' => false,
 	) );
     $group_field_id = $cmb->add_field( array(
 		'name'    	  => esc_html__( 'Pilihan Metode Pembayaran', 'velocity-gameol' ),

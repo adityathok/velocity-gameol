@@ -10,6 +10,7 @@ function games_post_type() {
         'public'        => true,
         'has_archive'   => true,
         'show_in_rest'  => true,
+        'menu_position' => 8,
         'taxonomies'    => array('category-games'),
         'supports'      => array(
             'title',
