@@ -66,7 +66,6 @@ foreach ($includes as $include) {
 		if (defined('WP_DEBUG') && true === WP_DEBUG) {
 			$the_version = $the_version.'.'.time();
 		}
-		$the_version = $the_version.'.'.time();
 
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('velocitygameol-script', VELOCITY_GAMEOL_PLUGIN_URL . 'js/script.js', array('jquery'), $the_version, true);
