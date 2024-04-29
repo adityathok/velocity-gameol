@@ -61,7 +61,7 @@ jQuery(function($){
                         $('#formvelogame .btn-promogame').html('Gunakan');
                         if(response.success == 1){
                             $('#formvelogame .card-promo .card-body').append('<div class="alert alert-success mt-2 alert-dismissible fade show">'+response.message+'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
-                            $('#formvelogame .card-promo .card-body .col-xl-3').append('<span class="btnhapuspromo btn btn-danger">Hapus</span>');
+                            $('#formvelogame .card-promo .card-body .input-kodepromo').append('<span class="btnhapuspromo btn btn-danger position-absolute top-0 end-0">X</span>');
                         } else {
                             $('#formvelogame .card-promo .card-body').append('<div class="alert alert-warning mt-2 alert-dismissible fade show">'+response.message+'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
                         }

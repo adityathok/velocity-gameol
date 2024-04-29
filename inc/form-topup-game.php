@@ -141,12 +141,14 @@ add_shortcode('form-topup-game', function(){
                 </div>
                 <div class="card-body">
                     <label for="kode_promo" class="form-label">Kode Promo (Optional)</label>
-                    <div class="row">
-                        <div class="col-md-8 col-xl-9">
-                            <input type="text" class="form-control" id="kode_promo" name="kode_promo" placeholder="Ketik kode promo kamu disini" style="border-style:dashed;">
+                    <div class="row g-2">
+                        <div class="col-8 col-md-9 col-xl-10">
+                            <div class="input-kodepromo form-control p-0 position-relative" style="border-style:dashed;">
+                                <input type="text" class="form-control border-0" id="kode_promo" name="kode_promo" placeholder="Ketik kode promo kamu disini">
+                            </div>
                         </div>
-                        <div class="col-md-4 col-xl-3 text-end">
-                            <span class="btn btn-primary btn-promogame">Gunakan</span>
+                        <div class="col-4 col-md-3 col-xl-2 text-end">
+                            <span class="btn btn-primary w-100 text-truncate btn-promogame">Gunakan</span>
                         </div>
                     </div>
                     <input type="hidden" name="potongan" id="potongan" value="0">                   
