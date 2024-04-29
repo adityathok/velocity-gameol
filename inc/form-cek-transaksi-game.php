@@ -25,6 +25,8 @@ add_shortcode('form-cek-transaksi-game', function(){
 add_action( 'wp_ajax_cektransaksigame', 'ajax_cektransaksigame_handler' );
 add_action( 'wp_ajax_nopriv_cektransaksigame', 'ajax_cektransaksigame_handler' );
 function ajax_cektransaksigame_handler() {
+    $gameoptions    = get_option('games_options');
+    $datapembayaran = isset($gameoptions['metode_pembayaran'])?$gameoptions['metode_pembayaran']:'';
     parse_str($_POST['formdata'], $formData);
     $invoice = $formData['noinvoice'];
 
@@ -50,10 +52,90 @@ function ajax_cektransaksigame_handler() {
                     'gagal'     => 'Gagal',
                 );
 
-                $status = get_post_meta( get_the_ID(), 'status', true );
-                echo '<div class="card text-center shadow my-3 text-dark border-2" style="border-style:dashed">';
-                    echo '<div class="card-header fw-bold text-bg-dark fs-5">'.$invoice.'</div>';
-                    echo '<div class="card-body">Status : '.$stt[$status].'</div>';
+                $status         = get_post_meta( get_the_ID(), 'status', true );
+                $nominal        = get_post_meta( get_the_ID(), 'nominal', true );
+                $nominal        = isset($nominal)&!empty($nominal)?explode("|",$nominal):'';
+                $nilai_nominal  = $nominal?str_replace(".", "", $nominal[1]):0;
+                $nama_nominal   = $nominal?$nominal[0]:0;
+                $pembayaran     = get_post_meta( get_the_ID(), 'pembayaran', true );
+                $potongan       = get_post_meta( get_the_ID(), 'potongan', true );
+                $total_bayar    = get_post_meta( get_the_ID(), 'total_bayar', true );
+
+                echo '<div class="card text-center shadow my-3 text-dark border-2">';
+                    echo '<div class="card-header text-bg-dark d-flex align-items-center justify-content-between">';
+                        echo '<div class="fw-bold fs-5">'.$invoice.'</div>';
+                        echo '<span class="badge bg-primary">'.$stt[$status].'</span>';
+                    echo '</div>';
+                    echo '<div class="card-body text-start">';
+                        echo '<div class="table-responsive">';
+                            echo '<table class="table">';
+                                echo '<tbody>';
+                                    echo '<tr>';
+                                        echo '<td class="fw-bold">Game</td>';
+                                        echo '<td>'.get_post_meta(get_the_ID(),'game',true).'</td>';
+                                    echo '</tr>';
+                                    echo '<tr>';
+                                        echo '<td class="fw-bold">Nominal</td>';
+                                        echo '<td>';
+                                            echo $nama_nominal;
+                                        echo '</td>';
+                                    echo '</tr>';
+                                    echo '<tr>';
+                                        echo '<td class="fw-bold">Data Player</td>';
+                                        echo '<td>';
+                                            $data_player = get_post_meta( get_the_ID(), 'data_player', true );
+                                            if($data_player):
+                                                echo '<ul class="ps-3">';
+                                                foreach ($data_player as $key => $value) {
+                                                    echo '<li>';
+                                                        echo $key.' : '.$value;
+                                                    echo '</li>';
+                                                }
+                                                echo '</ul>';
+                                            endif;
+                                        echo '</td>';
+                                    echo '</tr>';
+                                    echo '<tr>';
+                                        echo '<td class="fw-bold">Pembayaran</td>';
+                                        echo '<td>';
+                                            echo $pembayaran;
+                                        echo '</td>';
+                                    echo '</tr>';
+                                echo '</tbody>';
+                            echo '</table>';
+                        echo '</div>';
+                        echo '<div class="row">';
+                            echo '<div class="col-md-4 col-xl-5">';
+                                echo '<div class="fw-bold">TAGIHAN</div>';
+                            echo '</div>';
+                            echo '<div class="col-md-8 col-xl-7">';
+                                echo '<div class="table-responsive">';
+                                    echo '<table class="table table-borderless">';
+                                        echo '<tbody>';
+                                            echo '<tr>';
+                                                echo '<td>Harga</td>';
+                                                echo '<td>';
+                                                    echo 'Rp '.number_format($nilai_nominal,0,',','.');
+                                                echo '</td>';
+                                            echo '</tr>'; 
+                                            echo '<tr>';
+                                                echo '<td>Potongan</td>';
+                                                echo '<td>';
+                                                    echo 'Rp '.number_format($potongan,0,',','.');
+                                                echo '</td>';
+                                            echo '</tr>';
+                                            echo '<tr>';
+                                                echo '<td class="fw-bold">Total harus dibayar</td>';
+                                                echo '<td class="fw-bold">';
+                                                    echo 'Rp '.number_format($total_bayar,0,',','.');
+                                                echo '</td>';
+                                            echo '</tr>';
+                                        echo '</tbody>';
+                                    echo '</table>';
+                                echo '</div>';
+                            echo '</div>';
+                        echo '</div>';
+                    echo '</div>';
                 echo '</div>';
             } 
         } else {
