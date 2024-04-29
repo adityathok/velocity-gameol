@@ -27,6 +27,12 @@ add_action( 'wp_ajax_nopriv_cektransaksigame', 'ajax_cektransaksigame_handler' )
 function ajax_cektransaksigame_handler() {
     $gameoptions    = get_option('games_options');
     $datapembayaran = isset($gameoptions['metode_pembayaran'])?$gameoptions['metode_pembayaran']:'';
+    
+    $bayarm = [];
+    foreach($datapembayaran as $n => $data){
+        $bayarm[$data['title']] = $data;
+    }
+
     parse_str($_POST['formdata'], $formData);
     $invoice = $formData['noinvoice'];
 
@@ -95,18 +101,37 @@ function ajax_cektransaksigame_handler() {
                                             endif;
                                         echo '</td>';
                                     echo '</tr>';
-                                    echo '<tr>';
-                                        echo '<td class="fw-bold">Pembayaran</td>';
-                                        echo '<td>';
-                                            echo $pembayaran;
-                                        echo '</td>';
-                                    echo '</tr>';
+
+                                    ///INFO PEMBAYARAN
+                                    if(isset($bayarm[$pembayaran])){
+                                        $infobayarm = $bayarm[$pembayaran];
+                                        echo '<tr>';
+                                            echo '<td class="fw-bold">Pembayaran</td>';
+                                            echo '<td>';
+                                                echo $infobayarm['logo']?'<img src="'.$infobayarm['logo'].'" width="90" alt="'.$infobayarm['title'].'">':$infobayarm['title'];
+                                            echo '</td>';
+                                        echo '</tr>';
+                                        echo '<tr>';
+                                            echo '<td class="fw-bold">Rekening tujuan</td>';
+                                            echo '<td>';
+                                                echo $infobayarm['description'];
+                                            echo '</td>';
+                                        echo '</tr>';
+                                    } else {
+                                        echo '<tr>';
+                                            echo '<td class="fw-bold">Pembayaran</td>';
+                                            echo '<td>';
+                                                echo $pembayaran;
+                                            echo '</td>';
+                                        echo '</tr>';
+                                    }
+
                                 echo '</tbody>';
                             echo '</table>';
                         echo '</div>';
                         echo '<div class="row">';
                             echo '<div class="col-md-4 col-xl-5">';
-                                echo '<div class="fw-bold">TAGIHAN</div>';
+                                echo '<div class="px-2 fw-bold">TAGIHAN</div>';
                             echo '</div>';
                             echo '<div class="col-md-8 col-xl-7">';
                                 echo '<div class="table-responsive">';
